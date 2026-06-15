@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nakyung Yi — Cybersecurity & Data Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1220; --slate:#172033; --paper:#F6F7F9; --card:#FFFFFF;
+    --border:#E4E8EF; --text:#0B1220; --muted:#5B6677; --faint:#8A94A6;
+    --teal:#0EA5A4; --teal-deep:#0B7C7B; --indigo:#6366F1;
+    --hero-line:#22304B; --hero-text:#E7ECF4; --hero-faint:#8FA0BC;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--text);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+  a{color:inherit;}
+
+  /* ---------- NAV ---------- */
+  nav{position:sticky;top:0;z-index:50;background:rgba(11,18,32,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--hero-line);}
+  .nav-in{max-width:980px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--hero-text);letter-spacing:.02em;text-decoration:none;}
+  .brand span{color:var(--teal);}
+  .nav-links{display:flex;align-items:center;gap:24px;}
+  .nav-links a{font-size:13.5px;color:var(--hero-faint);text-decoration:none;transition:color .15s ease;}
+  .nav-links a:hover{color:var(--hero-text);}
+  .nav-cta{font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:500;
+    color:var(--ink) !important;background:var(--teal);padding:8px 14px;border-radius:7px;transition:background .15s ease;}
+  .nav-cta:hover{background:#13c2c0;}
+  .nav-toggle{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{background:var(--ink);color:var(--hero-text);padding:74px 0 64px;position:relative;overflow:hidden;}
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--teal),transparent);opacity:.7;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--teal);margin:0 0 22px;display:flex;align-items:center;gap:10px;}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--teal);display:inline-block;}
+  .hero h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(38px,7vw,64px);
+    line-height:1.02;letter-spacing:-.02em;margin:0 0 14px;}
+  .hero h1 .paren{color:var(--hero-faint);font-weight:500;}
+  .hero .role{font-family:'Space Grotesk',sans-serif;font-size:clamp(16px,2.4vw,20px);
+    color:var(--hero-text);font-weight:500;margin:0 0 18px;}
+  .hero .role b{color:var(--teal);font-weight:600;}
+  .hero .lede{max-width:600px;color:var(--hero-faint);font-size:16px;margin:0 0 30px;}
+  .creds{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;}
+  .cred{font-family:'JetBrains Mono',monospace;font-size:12px;padding:6px 12px;border:1px solid var(--hero-line);
+    border-radius:999px;color:var(--hero-text);background:rgba(255,255,255,.02);}
+  .cred.clear{border-color:var(--teal);color:var(--teal);}
+  .contact-row{display:flex;flex-wrap:wrap;gap:22px;font-size:14px;}
+  .contact-row a,.contact-row span{color:var(--hero-faint);text-decoration:none;display:inline-flex;align-items:center;gap:7px;}
+  .contact-row a:hover{color:var(--teal);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{scroll-margin-top:70px;}
+  .section-label{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--faint);margin:0 0 22px;display:flex;align-items:center;gap:14px;}
+  .section-label::after{content:"";flex:1;height:1px;background:var(--border);}
+
+  /* ---------- ABOUT ---------- */
+  #about{padding:56px 0 8px;}
+  #about p{font-size:17px;color:var(--muted);max-width:700px;margin:0;}
+  #about p b{color:var(--text);font-weight:600;}
+
+  /* ---------- SKILLS ---------- */
+  #skills{padding:54px 0 8px;}
+  .skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .skill-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 22px 20px;}
+  .skill-card h4{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;margin:0 0 14px;
+    display:flex;align-items:center;gap:9px;}
+  .skill-card h4 .dot{width:7px;height:7px;border-radius:2px;background:var(--teal);display:inline-block;}
+  .skill-card.alt h4 .dot{background:var(--indigo);}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:7px;}
+  .skill-tags span{font-family:'JetBrains Mono',monospace;font-size:12px;padding:5px 10px;border:1px solid var(--border);
+    border-radius:6px;color:var(--muted);background:#FBFCFD;}
+
+  /* ---------- PROJECTS ---------- */
+  #projects{padding:54px 0 8px;}
+  .project{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:30px 30px 26px;margin-bottom:20px;
+    transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;}
+  .project:hover{transform:translateY(-3px);box-shadow:0 14px 34px -18px rgba(11,18,32,.32);border-color:#D3DAE6;}
+  .p-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+  .phase{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    padding:5px 10px;border-radius:6px;background:rgba(14,165,164,.10);color:var(--teal-deep);}
+  .phase.data{background:rgba(99,102,241,.10);color:#4F46E5;}
+  .p-meta{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);}
+  .project h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:23px;letter-spacing:-.01em;line-height:1.2;margin:0 0 12px;}
+  .project p.desc{font-size:15px;color:var(--muted);margin:0 0 16px;}
+  .highlight{display:flex;gap:11px;font-size:14px;color:var(--text);padding:13px 15px;background:var(--paper);
+    border-radius:10px;border-left:3px solid var(--teal);margin-bottom:18px;}
+  .project.data .highlight{border-left-color:var(--indigo);}
+  .highlight .tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);text-transform:uppercase;
+    letter-spacing:.1em;flex-shrink:0;padding-top:2px;}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px;}
+  .chip{font-family:'JetBrains Mono',monospace;font-size:12px;padding:5px 10px;border:1px solid var(--border);
+    border-radius:6px;color:var(--muted);background:#FBFCFD;}
+  .report-link{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:var(--teal-deep);
+    text-decoration:none;display:inline-flex;align-items:center;gap:8px;border-bottom:1px solid transparent;
+    transition:gap .15s ease,border-color .15s ease;}
+  .report-link:hover{gap:12px;border-color:var(--teal-deep);}
+  .report-link .arrow{transition:transform .15s ease;}
+  .report-link:hover .arrow{transform:translateX(2px);}
+
+  /* ---------- CERTS ---------- */
+  #certs{padding:54px 0 8px;}
+  .cert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .cert{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 18px;text-align:left;}
+  .cert.lead{border-color:var(--teal);background:linear-gradient(180deg,rgba(14,165,164,.06),transparent);}
+  .cert .ct-status{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--faint);margin:0 0 9px;}
+  .cert.lead .ct-status{color:var(--teal-deep);}
+  .cert .ct-name{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;line-height:1.25;margin:0;}
+  .cert .ct-sub{font-size:12.5px;color:var(--muted);margin:5px 0 0;}
+
+  /* ---------- CONTACT ---------- */
+  #contact{padding:60px 0 0;}
+  .contact-card{background:var(--ink);border-radius:18px;padding:42px 38px;color:var(--hero-text);}
+  .contact-card .eyebrow{margin-bottom:16px;}
+  .contact-card h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,4vw,32px);font-weight:600;
+    letter-spacing:-.01em;margin:0 0 12px;}
+  .contact-card p{color:var(--hero-faint);max-width:520px;margin:0 0 26px;font-size:15px;}
+  .contact-actions{display:flex;flex-wrap:wrap;gap:12px;}
+  .btn{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;text-decoration:none;padding:11px 18px;
+    border-radius:9px;display:inline-flex;align-items:center;gap:9px;transition:transform .15s ease,background .15s ease;}
+  .btn.primary{background:var(--teal);color:var(--ink);}
+  .btn.primary:hover{background:#13c2c0;transform:translateY(-2px);}
+  .btn.ghost{background:transparent;color:var(--hero-text);border:1px solid var(--hero-line);}
+  .btn.ghost:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px);}
+
+  /* ---------- FOOTER ---------- */
+  footer{margin-top:40px;padding:34px 0;border-top:1px solid var(--border);}
+  footer .f-in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;}
+  footer .f-name{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted);}
+  footer .f-note{font-size:12.5px;color:var(--faint);}
+
+  /* ---------- ANIM / FLOOR ---------- */
+  .reveal{opacity:0;transform:translateY(14px);animation:rise .7s ease forwards;}
+  .d1{animation-delay:.05s;} .d2{animation-delay:.12s;} .d3{animation-delay:.19s;}
+  @keyframes rise{to{opacity:1;transform:translateY(0);}}
+  @media (prefers-reduced-motion:reduce){.reveal{animation:none;opacity:1;transform:none;}html{scroll-behavior:auto;}}
+  a:focus-visible,.report-link:focus-visible,.btn:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px;}
+
+  @media (max-width:720px){
+    .nav-links a:not(.nav-cta){display:none;}
+    .skill-grid{grid-template-columns:1fr;}
+    .cert-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:560px){
+    .hero{padding:54px 0 46px;}
+    .project{padding:24px 22px;}
+    .contact-card{padding:32px 24px;}
+    .contact-row{gap:14px;}
+  }
+</style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-in">
+      <a class="brand" href="#top">NAKYUNG<span>.</span>YI</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#certs">Certifications</a>
+        <!-- Replace # with your résumé link (e.g. Google Drive PDF) -->
+        <a class="nav-cta" href="#" target="_blank" rel="noopener">Résumé ↗</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="wrap">
+      <p class="eyebrow reveal">Security &amp; Data Portfolio</p>
+      <h1 class="reveal d1">Nakyung Yi</h1>
+      <p class="role reveal d1"><b>Cybersecurity</b> &nbsp;·&nbsp; <b>Data Analysis</b></p>
+      <p class="lede reveal d2">University of Washington Geography: Data Science graduate and Air Force reservist moving into cybersecurity. The work below runs the full arc &mdash; launching an attack, closing the gap it exposed, and building the logging to catch it &mdash; plus a data-analysis project from my quantitative background.</p>
+      <div class="creds reveal d2">
+        <span class="cred clear">Active DoD Security Clearance</span>
+        <span class="cred">CompTIA Security+ (in progress)</span>
+        <span class="cred">CompTIA Network+ (in progress)</span>
+        <span class="cred">B.A. Geography: Data Science · GPA 3.5</span>
+      </div>
+      <div class="contact-row reveal d3">
+        <a href="mailto:irene.nakyung.yi@gmail.com">✉ irene.nakyung.yi@gmail.com</a>
+        <span>◉ Auburn, WA</span>
+        <a href="tel:+12533978611">☎ (253) 397-8611</a>
+        <!-- Replace # with your LinkedIn URL -->
+        <a href="#" target="_blank" rel="noopener">in · LinkedIn</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ABOUT -->
+    <section id="about">
+      <p class="section-label">About</p>
+      <p>I'm a University of Washington Geography: Data Science graduate and Air Force reservist transitioning into <b>cybersecurity</b>. I hold an <b>active DoD Security Clearance</b> and four years of experience protecting sensitive medical and personnel data under HIPAA in a federal environment. I'm pursuing CompTIA Security+ and Network+, and I'm focused on roles in <b>security analysis, information assurance, and governance, risk &amp; compliance</b> &mdash; ideally supporting federal or defense missions. The projects below show how I work: hands-on, end to end, and tied to a real outcome.</p>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <p class="section-label">Technical Skills</p>
+      <div class="skill-grid">
+        <div class="skill-card">
+          <h4><span class="dot"></span>Security &amp; Networking</h4>
+          <div class="skill-tags">
+            <span>Network Security</span><span>TLS / SSL &amp; PKI</span><span>Packet Analysis</span>
+            <span>Vulnerability Assessment</span><span>MITM &amp; ARP Spoofing</span><span>Brute-Force Defense</span>
+            <span>Access Control</span><span>HTTPS Hardening</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h4><span class="dot"></span>Tools &amp; Platforms</h4>
+          <div class="skill-tags">
+            <span>Wireshark</span><span>OWASP ZAP</span><span>Loggly</span><span>GNS3</span>
+            <span>Docker</span><span>nginx</span><span>OpenSSL</span><span>Microsoft Azure</span><span>ArcGIS Pro</span><span>Git</span>
+          </div>
+        </div>
+        <div class="skill-card alt">
+          <h4><span class="dot"></span>Programming &amp; Data</h4>
+          <div class="skill-tags">
+            <span>Python</span><span>R</span><span>Java</span><span>SQL / MySQL</span>
+            <span>PHP</span><span>Pandas</span><span>Machine Learning</span><span>Data Visualization</span>
+          </div>
+        </div>
+        <div class="skill-card alt">
+          <h4><span class="dot"></span>Frameworks &amp; Practices</h4>
+          <div class="skill-tags">
+            <span>CIA Triad</span><span>OWASP Top 10</span><span>Secure SDLC</span>
+            <span>Incident Logging</span><span>HIPAA Compliance</span><span>NIST CSF</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <p class="section-label">Selected Work · 04 Projects</p>
+
+      <article class="project">
+        <div class="p-top"><span class="phase">Attack · Intercept</span><span class="p-meta">INFO 310 · Jan 2026</span></div>
+        <h3>Man-in-the-Middle Attack &amp; Credential Interception</h3>
+        <p class="desc">Built an isolated attack lab on a Microsoft Azure cloud VM, modeling a full network in GNS3 with separate attacker and victim machines connected through a switch and NAT. Ran an ARP spoofing attack to position the attacker between the victim and the gateway, then captured live traffic in Wireshark. Because the target web app ran over HTTP, I intercepted the victim's login request and read the username and password in clear text.</p>
+        <div class="highlight"><span class="tag">Result</span><span>Captured plaintext credentials off the wire and mapped the impact to the CIA triad, showing exactly why unencrypted traffic breaks confidentiality.</span></div>
+        <div class="chips"><span class="chip">GNS3</span><span class="chip">Azure</span><span class="chip">Docker</span><span class="chip">ARP spoofing</span><span class="chip">Wireshark</span><span class="chip">HTTP</span></div>
+        <a class="report-link" href="#" target="_blank" rel="noopener">Read the write-up <span class="arrow">→</span></a>
+      </article>
+
+      <article class="project">
+        <div class="p-top"><span class="phase">Defense · Encrypt</span><span class="p-meta">INFO 310 · Jan 2026</span></div>
+        <h3>Securing Web Traffic with TLS / HTTPS</h3>
+        <p class="desc">Closed the exact weakness the MITM lab exposed. I generated a private key and certificate signing request with OpenSSL, had the certificate signed by the iSchool root CA, and configured nginx through Docker to serve the application over HTTPS on port 443. I then re-ran the capture in Wireshark to prove the previously readable login traffic was now protected by TLS.</p>
+        <div class="highlight"><span class="tag">Result</span><span>Verified end-to-end encryption and explained which OSI layers stay in clear text after TLS, and why &mdash; turning a known vulnerability into a fixed one.</span></div>
+        <div class="chips"><span class="chip">OpenSSL</span><span class="chip">nginx</span><span class="chip">TLS / SSL</span><span class="chip">PKI</span><span class="chip">Docker</span><span class="chip">Wireshark</span></div>
+        <a class="report-link" href="#" target="_blank" rel="noopener">Read the write-up <span class="arrow">→</span></a>
+      </article>
+
+      <article class="project">
+        <div class="p-top"><span class="phase">Monitor · Detect</span><span class="p-meta">INFO 310 · Feb 2026</span></div>
+        <h3>Security Logging &amp; Brute-Force Detection</h3>
+        <p class="desc">Instrumented a PHP password-manager application with centralized security logging using Monolog and the Loggly service. I logged failed and successful logins, logout events, and unauthorized attempts to reach protected pages, then added brute-force protection that tracks failed attempts per IP address, triggers a lockout, and logs the detection event &mdash; the kind of telemetry a SOC analyst depends on.</p>
+        <div class="highlight"><span class="tag">Result</span><span>Built detection-and-response logic (per-IP lockout plus alerting) on top of full security-event logging, so misuse is both recorded and stopped.</span></div>
+        <div class="chips"><span class="chip">Loggly</span><span class="chip">Monolog</span><span class="chip">PHP</span><span class="chip">MySQL</span><span class="chip">Docker</span><span class="chip">Brute-force defense</span></div>
+        <a class="report-link" href="#" target="_blank" rel="noopener">Read the write-up <span class="arrow">→</span></a>
+      </article>
+
+      <article class="project data">
+        <div class="p-top"><span class="phase data">Data · Analyze</span><span class="p-meta">GEOG 461 · Feb 2026</span></div>
+        <h3>Spatial Risk Analysis: Emergency Incident Density Mapping</h3>
+        <p class="desc">Turned thousands of Kent Fire Department call records into clear risk patterns using kernel density estimation and contour mapping in ArcGIS Pro. I standardized the analysis environment &mdash; projection, 50-ft cell size, and a one-mile search radius &mdash; across five incident types, then tuned contour breakpoints per category so demand hotspots stayed readable for staffing and station-placement decisions.</p>
+        <div class="highlight"><span class="tag">Result</span><span>Converted raw NFIRS-coded point data into decision-ready maps with a repeatable geoprocessing workflow that lets each incident type be compared fairly.</span></div>
+        <div class="chips"><span class="chip">ArcGIS Pro</span><span class="chip">Kernel Density (KDE)</span><span class="chip">Spatial analysis</span><span class="chip">NFIRS data</span><span class="chip">Cartography</span></div>
+        <a class="report-link" href="#" target="_blank" rel="noopener">Read the write-up <span class="arrow">→</span></a>
+      </article>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certs">
+      <p class="section-label">Certifications &amp; Clearance</p>
+      <div class="cert-grid">
+        <div class="cert lead">
+          <p class="ct-status">Active · Held</p>
+          <p class="ct-name">DoD Security Clearance</p>
+          <p class="ct-sub">U.S. Department of Defense</p>
+        </div>
+        <div class="cert">
+          <p class="ct-status">In Progress</p>
+          <p class="ct-name">CompTIA Security+</p>
+          <p class="ct-sub">Core security baseline</p>
+        </div>
+        <div class="cert">
+          <p class="ct-status">In Progress</p>
+          <p class="ct-name">CompTIA Network+</p>
+          <p class="ct-sub">Networking fundamentals</p>
+        </div>
+        <div class="cert">
+          <p class="ct-status">2026 · Earned</p>
+          <p class="ct-name">B.A. Geography: Data Science</p>
+          <p class="ct-sub">Univ. of Washington · GPA 3.5</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="contact-card">
+        <p class="eyebrow">Get in touch</p>
+        <h2>Let's talk security.</h2>
+        <p>Open to entry-level cybersecurity, information assurance, and GRC roles &mdash; especially those supporting federal or defense missions. Full lab write-ups are available on request.</p>
+        <div class="contact-actions">
+          <a class="btn primary" href="mailto:irene.nakyung.yi@gmail.com">✉ Email me</a>
+          <!-- Replace # with your LinkedIn URL -->
+          <a class="btn ghost" href="#" target="_blank" rel="noopener">in · LinkedIn</a>
+          <!-- Replace # with your résumé link -->
+          <a class="btn ghost" href="#" target="_blank" rel="noopener">↓ Résumé</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap f-in">
+      <span class="f-name">Nakyung Yi — Auburn, WA</span>
+      <span class="f-note">Built &amp; maintained by Nakyung Yi · 2026</span>
+    </div>
+  </footer>
+
+</body>
+</html>
